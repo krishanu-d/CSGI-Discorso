@@ -14,8 +14,8 @@ export default function Login(props) {
     const [hasErr, setHasErr] = useState(false);
     const [hasPasswordErr, setHasPasswordErr] = useState(false);
 
-    const [ enrollmentNumber, setEnrollmentNumber] = useState('');
-    const [password, setPassword]= useState('');
+    const [enrollmentNumber, setEnrollmentNumber] = useState('');
+    const [password, setPassword] = useState('');
 
     // useEffect(() => {
     //     // console.log("userInfo---------------------->>>>>>>");
@@ -28,24 +28,27 @@ export default function Login(props) {
 
     // }, [isFocused])
 
-    const submit =()=>{
+    const submit = () => {
 
         // function useRegex(enrollmentNumber) {
         //     let regex = /[0-9A-Za-z]+/i;
         //     console.log('helllooo',regex.test(enrollmentNumber)); 
         // }
+        // useRegex();
 
-        if(enrollmentNumber==='BH1111' ){
-            if(password ==='CSGI@2023'){
+        if (enrollmentNumber === '') {
+            setHasErr(false);
+
+            if (password === '') {
 
                 console.log('heloooooooooooooooo');
                 setHasErr(false);
                 setHasPasswordErr(false);
-            }else{
+                props.navigation.replace('BottomTabs', { screen: 'Home', params: { screen: 'Dashboard' }, });
+            } else {
                 setHasPasswordErr(true);
             }
-            // props.navigation.navigate('Dashboard');
-        }else{
+        } else {
             setHasErr(true);
         }
 
@@ -78,7 +81,7 @@ export default function Login(props) {
 
                     </View>
 
-                    <KeyboardAvoidingView behavior='padding' style={{   }} keyboardVerticalOffset={40}>
+                    <KeyboardAvoidingView behavior='padding' style={{}} keyboardVerticalOffset={40}>
                         {/* Input View */}
                         <View style={{ paddingTop: 70 }}>
                             <View style={{ paddingVertical: 15 }}>
@@ -88,10 +91,10 @@ export default function Login(props) {
                                 <TextInput placeholder='AB1111' maxLength={6}
                                     placeholderTextColor={Colors.darkGrey}
                                     style={hasErr ? Styles.inputContainerErr : Styles.inputContainer}
-                                    onChangeText={(t) => {setEnrollmentNumber(t) }}
-                                // onSubmitEditing={() => {
-                                //     onSumbit()
-                                // }}
+                                    onChangeText={(t) => { setEnrollmentNumber(t) }}
+                                    // onSubmitEditing={() => {
+                                    //     onSumbit()
+                                    // }}
                                 />
                                 {hasErr &&
                                     <Text style={Styles.inputErrTextStyle}>Inorrect Enrollement Number</Text>}
@@ -103,10 +106,10 @@ export default function Login(props) {
                                     <TextInput placeholder='*******' maxLength={12}
                                         placeholderTextColor={Colors.darkGrey}
                                         style={hasPasswordErr ? Styles.inputContainerErr : Styles.inputContainer}
-                                        onChangeText={(p) => {setPassword(p) }}
-                                    // onSubmitEditing={() => {
-                                    //     onSumbit()
-                                    // }}
+                                        onChangeText={(p) => { setPassword(p) }}
+                                        // onSubmitEditing={() => {
+                                        //     onSumbit()
+                                        // }}
                                     />
                                     <View>
 
@@ -121,7 +124,7 @@ export default function Login(props) {
 
                     </KeyboardAvoidingView>
 
-                    <View style={{ justifyContent: 'center', paddingVertical:60, }}>
+                    <View style={{ justifyContent: 'center', paddingVertical: 60, }}>
                         <CommonButton title='Get Started' onPress={() => { submit() }} backgroundColor={Colors.btnColor} style={{ height: 50, minWidth: '80%' }} borderRadius={50} textStyle={{ color: Colors.bgBlack, fontSize: 16, }} />
                         <FastImage source={Icons.rightArrow} style={{ width: 18, height: 18, position: 'absolute', right: 20 }} resizeMode={'contain'} />
 
