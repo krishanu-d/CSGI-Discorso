@@ -76,7 +76,7 @@ export default function Splash(props) {
                 <TransitionView animation="slideInDown">
                     <FastImage source={Images.splashBg} style={{ position: 'relative', height: '100%', width: '100%' }} resizeMode={'cover'} />
                 </TransitionView>
-                <View style={{ position: 'absolute', alignSelf: 'center', top: '43%', alignItems: 'center', height: screenHeight / 2, width: 250, justifyContent: 'space-between' }}>
+                <View style={{ position: 'absolute', alignSelf: 'center', top: '43%', alignItems: 'center', height: screenHeight / 2, justifyContent: 'space-between' }}>
 
                     <TransitionView animation="slideInUp">
                         <View style={{ backgroundColor: Colors.logoBg, height: 130, width: 130, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
@@ -85,8 +85,9 @@ export default function Splash(props) {
                     </TransitionView>
 
                     <TransitionView animation="slideInUp">
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: Colors.bgBlack, fontSize: 32, fontFamily:Fonts.Medium }}>CSGI DISCORSO</Text>
+                        <View style={{ alignItems: 'center'  }}>
+                            <Text style={{ color: Colors.bgBlack, fontSize: 32, fontFamily:Fonts.Medium}}>CSGI DISCORSO</Text>
+                            <View style={{backgroundColor:'red', height:20}}></View>
                             <Text style={{ color: Colors.bgBlack, fontSize: 16, textAlign:'center', fontFamily:Fonts.Regular }}>A platform to upgrade yourself</Text>
                         </View>
                     </TransitionView>
