@@ -8,6 +8,7 @@ import CommonButton from '../../Common/CommonButton';
 import { Fonts } from '../../Common/Fonts';
 import { useScrollToTop } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Header from '../../Common/Header';
 
 
 
@@ -71,26 +72,8 @@ export default function QuizList(props) {
                 backgroundColor={Colors.navyBlue}
             />
             <View style={Styles.mainContainer}>
-                <View style={{ width: screenwidth * .97, height: '100%' }}>
-
-                    <View style={{ height: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-
-                        <View style={{ backgroundColor: Colors.logoBg, height: 45, width: 45, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
-                            <FastImage source={Images.Logo} style={{ width: 35, height: 23 }} resizeMode={'contain'} />
-                        </View>
-
-                        <View style={{ backgroundColor: Colors.bgGreyColor, height: 45, width: 130, borderRadius: 50, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, }}>
-
-                            <Text style={{ paddingHorizontal: 10, width: '70%', color: Colors.navyBlue }} numberOfLines={1}>Name</Text>
-
-                            <View style={{ backgroundColor: 'red', height: 30, width: 30, borderRadius: 50 }}>
-                            </View>
-
-                        </View>
-
-                    </View>
-
-
+                <Header />
+                <View style={{ width: screenwidth * .97, height: '100%', alignSelf: 'center' }}>
 
                     <View>
                         <Text style={{ color: Colors.heading, fontFamily: Fonts.Bold, fontSize: 28 }}>Quiz</Text>
@@ -119,7 +102,7 @@ const Styles = StyleSheet.create({
         backgroundColor: Colors.dashBg,
         flex: 1,
         // justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
         // backgroundColor: 'yellow'
     },
 

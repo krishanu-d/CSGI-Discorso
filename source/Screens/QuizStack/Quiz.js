@@ -8,8 +8,7 @@ import CommonButton from '../../Common/CommonButton';
 import { Fonts } from '../../Common/Fonts';
 import { useScrollToTop } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-
-
+import Header from '../../Common/Header';
 
 const screenHeight = Dimensions.get('screen').height
 const screenwidth = Dimensions.get('window').width
@@ -17,13 +16,19 @@ const screenwidth = Dimensions.get('window').width
 export default function Quiz(props) {
 
     // console.log(props.route.params.name)
+    const questions = [];
+
     const quizName = props.route.params.name;
     const [startQuiz, setStartQuiz] = useState(false);
 
     const quizStart = () => {
         setStartQuiz(true);
-
+        getQuestions();
     }
+
+    const getQuestions = () => [
+
+    ]
 
 
 
@@ -38,17 +43,7 @@ export default function Quiz(props) {
             />
             <View style={Styles.mainContainer}>
                 {/* <View style={{}}> */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: Colors.heading, padding: 10 }}>
-                    <View style={{ backgroundColor: Colors.logoBg, height: 45, width: 45, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
-                        <FastImage source={Images.Logo} style={{ width: 35, height: 23 }} resizeMode={'contain'} />
-                    </View>
-
-                    <View style={{ backgroundColor: Colors.bgGreyColor, height: 45, width: 130, borderRadius: 50, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, }}>
-                        <Text style={{ paddingHorizontal: 10, width: '70%', color: Colors.navyBlue }} numberOfLines={1}>Name</Text>
-                        <View style={{ backgroundColor: 'red', height: 30, width: 30, borderRadius: 50 }}>
-                        </View>
-                    </View>
-                </View>
+                <Header />
                 {/* </View> */}
 
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, width: screenwidth * 0.97, alignSelf: 'center' }} >
