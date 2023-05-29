@@ -6,11 +6,7 @@ import { Values } from "./Values";
 
 export async function loginDatabaseService(data) {
     console.log('rootURL Endpoint');
-    // const Header = new Headers();
-    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibG9naW5faWQiOiJCSDM0MjkiLCJwYXNzd29yZCI6IkFCSEkyMDAwQENTSVQuSU4iLCJjcmVhdGVkX2F0IjoiMjAyMy0wMi0wNFQwNzo1NjozNS4wMDBaIiwidXBkYXRlZF9hdCI6IjIwMjMtMDItMDRUMDc6NTg6MjUuMDAwWiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjgyNTg5MjEyfQ.0xNINNuH9jjv3xPieT-EUlWpLIkQIw4eUh0JO7OB1lY'
-    // Header.append("Authorization", token)
-    // console.log('headersssssss', Header)
-    // console.log('wddddddddddddddddd') 
+
 
     let configOptions = {
         method: 'POST',
