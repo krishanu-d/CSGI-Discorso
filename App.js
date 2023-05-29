@@ -10,6 +10,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { isReadyRef, navigate, navigationRef } from './RootNavigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Navigator from './source/navigation/navigation'
+import { Provider } from 'react-redux';
+import store  from './source/Redux/store';
 
 
 
@@ -17,14 +19,16 @@ import Navigator from './source/navigation/navigation'
 function App() {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#f4f4f4', width: '100%' }}>
-            <NavigationContainer ref={navigationRef}
-                onReady={() => {
-                    isReadyRef.current = true;
-                }}>
+            <Provider store={store}>
+                <NavigationContainer ref={navigationRef}
+                    onReady={() => {
+                        isReadyRef.current = true;
+                    }}>
 
-                <Navigator navigate={navigate} />
+                    <Navigator navigate={navigate} />
 
-            </NavigationContainer>
+                </NavigationContainer>
+            </Provider>
         </SafeAreaView>
     )
 

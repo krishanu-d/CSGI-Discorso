@@ -134,6 +134,7 @@ export default function Navigator() {
                 <Stack.Screen name={Routes.Auth.name} component={AuthStack} />
                 <Stack.Screen name={Routes.BottomTabs.name} component={BottomTabNavigator} />
                 <Stack.Screen name={Routes.Quiz.name} component={QuizStack} />
+                <Stack.Screen name={Routes.Account.name} component={AccountStack} />
 
             </Stack.Navigator>
         )

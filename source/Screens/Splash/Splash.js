@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StatusBar, StyleSheet, Dimensions } from "react-native";
 import { TransitionView } from '../../TransitionView/TransitionView';
@@ -15,16 +15,17 @@ import { Fonts } from '../../Common/Fonts';
 // import { SplashDatabaseService } from '../Service/DatabaseService';
 // import { Endpoints, ApiVersion, Method, StageURL } from '../Config/Keys';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Utils } from '../../Common/Utils';
+import { Values } from '../../Common/Values';
 
 const screenHeight = Dimensions.get('screen').height
 
 
 export default function Splash(props) {
 
-
+const [userInfo, setUserInfo] = useState(false);
     const isFocused = useIsFocused()
-
     useEffect(() => {
 
         if (isFocused)
@@ -33,10 +34,19 @@ export default function Splash(props) {
     }, [isFocused])
 
     const checkAuth = async () => {
-        // const authToken = await Utils.getData(Values.AUTH_TOKEN);
-        // const info = await Utils.getData(Values.USER_INFO);
-        // const cart = await Utils.getData(Values.CART_DATA) || [];
-        // console.log('SPLASH SCREEN AUTH TOKEN---------->', authToken, info);
+
+        // console.log("user info", userInfo);
+        const authToken = await Utils.getData(Values.AUTH_TOKEN);
+        console.log('SPLASH SCREEN AUTH TOKEN---------->', authToken);
+        if(authToken){
+            setUserInfo(true);
+            setTimeout(() => {
+            props.navigation.replace('BottomTabs', { screen: 'Home', params: { screen: 'Dashboard' }, });
+            }, 2000)
+        }
+        else{
+            setUserInfo(false);
+        }
         // console.log("cart Detail--------->>>>", cart);
         // if (authToken && info) {
         //     dispatch(setUserInfo(info))
@@ -93,13 +103,12 @@ export default function Splash(props) {
                     </TransitionView>
                     <View></View>
 
-                    <TransitionView animation="slideInUp">
+                  { !userInfo &&  <TransitionView animation="slideInUp">
                         <View style={{ justifyContent: 'center' }}>
                             <CommonButton title='Get Started' onPress={() => { getStarted() }} backgroundColor={Colors.btnColor} style={{ height: 50, minWidth: '80%' }} borderRadius={50} textStyle={{ color: Colors.bgBlack, fontSize: 16, }} />
                             <FastImage source={Icons.rightArrow} style={{ width: 18, height: 18, position: 'absolute', right: 20 }} resizeMode={'contain'} />
-
                         </View>
-                    </TransitionView>
+                    </TransitionView>}
 
 
                 </View>

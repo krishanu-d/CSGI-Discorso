@@ -7,6 +7,12 @@ import { Icons, Images } from '../../Assets/Asset';
 import CommonButton from '../../Common/CommonButton';
 import { Fonts } from '../../Common/Fonts';
 import { useScrollToTop } from '@react-navigation/native';
+import { loginDatabaseService } from '../../Common/DatabaseService';
+import { errorMessages } from '../../Common/Constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../Redux/action/userAction';
+import { Values } from '../../Common/Values';
+import { Utils } from '../../Common/Utils';
 
 
 export default function Login(props) {
@@ -16,6 +22,10 @@ export default function Login(props) {
 
     const [enrollmentNumber, setEnrollmentNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [passErr, setPassErr] = useState('');
+    const [enrollErr, setEnrollErr] = useState('');
+
+    const dispatch = useDispatch();
 
     // useEffect(() => {
     //     // console.log("userInfo---------------------->>>>>>>");
@@ -28,27 +38,41 @@ export default function Login(props) {
 
     // }, [isFocused])
 
-    const submit = () => {
+    const submit = async () => {
 
-        // function useRegex(enrollmentNumber) {
-        //     let regex = /[0-9A-Za-z]+/i;
-        //     console.log('helllooo',regex.test(enrollmentNumber)); 
-        // }
-        // useRegex();
+        if (enrollmentNumber.length > 0 && password.length > 0) {
+            let data = { loginId: enrollmentNumber, password: password }
 
-        if (enrollmentNumber === '') {
-            setHasErr(false);
+            let response = await loginDatabaseService(data);
 
-            if (password === '') {
+            console.log('response bahar wala', response.data.token);
+
+
+            if (response.status === 200) {
+                setHasErr(false);
+
 
                 console.log('heloooooooooooooooo');
                 setHasErr(false);
                 setHasPasswordErr(false);
+
+                dispatch(setToken(response.data.token));
+                await Utils.storeData(Values.AUTH_TOKEN, response.data.token);
+
                 props.navigation.replace('BottomTabs', { screen: 'Home', params: { screen: 'Dashboard' }, });
+
             } else {
+                setPassErr(errorMessages.incorrectPassword);
+                setEnrollErr(errorMessages.incorrectEnrollment);
                 setHasPasswordErr(true);
+
+                setHasErr(true);
             }
+
         } else {
+            setPassErr(errorMessages.emptyField);
+            setEnrollErr(errorMessages.emptyField);
+            setHasPasswordErr(true);
             setHasErr(true);
         }
 
@@ -91,25 +115,20 @@ export default function Login(props) {
                                 <TextInput placeholder='AB1111' maxLength={6}
                                     placeholderTextColor={Colors.darkGrey}
                                     style={hasErr ? Styles.inputContainerErr : Styles.inputContainer}
-                                    onChangeText={(t) => { setEnrollmentNumber(t) }}
-                                    // onSubmitEditing={() => {
-                                    //     onSumbit()
-                                    // }}
+                                    onChangeText={(t) => { setEnrollmentNumber(t); setHasErr(false) }}
                                 />
                                 {hasErr &&
-                                    <Text style={Styles.inputErrTextStyle}>Inorrect Enrollement Number</Text>}
+                                    <Text style={Styles.inputErrTextStyle}>{enrollErr}</Text>}
                             </View>
 
                             <View style={{ paddingVertical: 15 }}>
                                 <Text style={Styles.EnrollmentTextStyle}>Password</Text>
                                 <View>
-                                    <TextInput placeholder='*******' maxLength={12}
+                                    <TextInput placeholder='*******' maxLength={20}
                                         placeholderTextColor={Colors.darkGrey}
                                         style={hasPasswordErr ? Styles.inputContainerErr : Styles.inputContainer}
-                                        onChangeText={(p) => { setPassword(p) }}
-                                        // onSubmitEditing={() => {
-                                        //     onSumbit()
-                                        // }}
+                                        onChangeText={(p) => { setPassword(p); setHasPasswordErr(false); }}
+                                        onSubmitEditing={() => { submit() }}
                                     />
                                     <View>
 
@@ -117,7 +136,7 @@ export default function Login(props) {
 
                                 </View>
                                 {hasPasswordErr &&
-                                    <Text style={Styles.inputErrTextStyle}>Inorrect Password</Text>}
+                                    <Text style={Styles.inputErrTextStyle}>{passErr}</Text>}
                             </View>
 
                         </View>
