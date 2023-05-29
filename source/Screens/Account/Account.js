@@ -8,6 +8,10 @@ import CommonButton from '../../Common/CommonButton';
 import { Fonts } from '../../Common/Fonts';
 import { useScrollToTop } from '@react-navigation/native';
 import Header from '../../Common/Header';
+import { Values } from '../../Common/Values';
+import { Utils } from '../../Common/Utils';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../Redux/action/userAction';
 
 
 const screenHeight = Dimensions.get('screen').height
@@ -26,10 +30,16 @@ export default function Dashboard(props) {
         }
     ];
 
-    const routes = (title) => {
+    const dispatch = useDispatch();
+
+    const routes = async(title) => {
         switch (title) {
             case 'Logout':
-                return props.navigation.replace('Auth', { screen: 'Login', });
+                {
+                    dispatch(setToken(null));
+                    await Utils.storeData(Values.AUTH_TOKEN, null);
+                    return props.navigation.replace('Auth', { screen: 'Login', });
+                }
 
 
 
