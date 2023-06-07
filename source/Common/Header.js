@@ -15,8 +15,7 @@ export default function Header() {
 
             <View style={{ backgroundColor: Colors.bgGreyColor, height: 45, width: 130, borderRadius: 50, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>
                 <Text style={{ paddingHorizontal: 10, width: '70%', color: Colors.navyBlue, fontFamily: Fonts.Regular }} numberOfLines={1}>Name</Text>
-                <View style={{ backgroundColor: 'red', height: 35, width: 35, borderRadius: 50 }}>
-                </View>
+                <FastImage source={Images.dp} style={{ height: 35, width: 35, borderRadius: 50 }} />
             </View>
         </View>
     )

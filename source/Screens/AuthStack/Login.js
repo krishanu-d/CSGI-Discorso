@@ -45,10 +45,10 @@ export default function Login(props) {
 
             let response = await loginDatabaseService(data);
 
-            console.log('response bahar wala', response.data.token);
+            console.log('response bahar wala', response.data.code);
 
 
-            if (response.status === 200) {
+            if (response.data.code === 200) {
                 setHasErr(false);
 
 
@@ -88,26 +88,26 @@ export default function Login(props) {
             />
             <SafeAreaView style={Styles.mainContainer}>
 
-                <View style={{}}>
-                    {/* LOGO and text */}
-                    <View style={{ paddingTop: 50, }}>
+                <KeyboardAvoidingView behavior='height' keyboardVerticalOffset={100} style={{ flex: 1 }} >
+                    <View style={{}}>
+                        {/* LOGO and text */}
+                        <View style={{ paddingTop: 50, }}>
 
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
-                            <View style={{ backgroundColor: Colors.logoBg, height: 70, width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
-                                <FastImage source={Images.Logo} style={{ width: 51, height: 39 }} resizeMode={'contain'} />
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
+                                <View style={{ backgroundColor: Colors.logoBg, height: 70, width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
+                                    <FastImage source={Images.Logo} style={{ width: 51, height: 39 }} resizeMode={'contain'} />
+                                </View>
+                                <Text style={{ color: Colors.bgBlack, fontSize: 32, fontFamily: Fonts.Medium, paddingLeft: 10 }}>CSGI DISCORSO</Text>
                             </View>
-                            <Text style={{ color: Colors.bgBlack, fontSize: 32, fontFamily: Fonts.Medium, paddingLeft: 10 }}>CSGI DISCORSO</Text>
+
+                            <View style={{ paddingVertical: 10 }}>
+                                <Text style={{ color: Colors.bgBlack, fontSize: 16, textAlign: 'center', fontFamily: Fonts.Regular, }}>For the students, By the students</Text>
+                            </View>
+
                         </View>
 
-                        <View style={{ paddingVertical: 10 }}>
-                            <Text style={{ color: Colors.bgBlack, fontSize: 16, textAlign: 'center', fontFamily: Fonts.Regular, }}>For the students, By the students</Text>
-                        </View>
-
-                    </View>
-
-                    <KeyboardAvoidingView behavior='padding' style={{}} keyboardVerticalOffset={40}>
                         {/* Input View */}
-                        <View style={{ paddingTop: 70 }}>
+                        <View style={{ paddingTop: 50 }}>
                             <View style={{ paddingVertical: 15 }}>
 
                                 <Text style={Styles.EnrollmentTextStyle}>Enrollment Number</Text>
@@ -126,6 +126,7 @@ export default function Login(props) {
                                 <View>
                                     <TextInput placeholder='*******' maxLength={20}
                                         placeholderTextColor={Colors.darkGrey}
+                                        secureTextEntry={true}
                                         style={hasPasswordErr ? Styles.inputContainerErr : Styles.inputContainer}
                                         onChangeText={(p) => { setPassword(p); setHasPasswordErr(false); }}
                                         onSubmitEditing={() => { submit() }}
@@ -141,15 +142,15 @@ export default function Login(props) {
 
                         </View>
 
-                    </KeyboardAvoidingView>
 
-                    <View style={{ justifyContent: 'center', paddingVertical: 60, }}>
-                        <CommonButton title='Get Started' onPress={() => { submit() }} backgroundColor={Colors.btnColor} style={{ height: 50, minWidth: '80%' }} borderRadius={50} textStyle={{ color: Colors.bgBlack, fontSize: 16, }} />
-                        <FastImage source={Icons.rightArrow} style={{ width: 18, height: 18, position: 'absolute', right: 20 }} resizeMode={'contain'} />
+                        <View style={{ justifyContent: 'center', paddingVertical:30}}>
+                            <CommonButton title='Get Started' onPress={() => { submit() }} backgroundColor={Colors.btnColor} style={{ height: 50, minWidth: '80%' }} borderRadius={50} textStyle={{ color: Colors.bgBlack, fontSize: 16, }} />
+                            <FastImage source={Icons.rightArrow} style={{ width: 18, height: 18, position: 'absolute', right: 20 }} resizeMode={'contain'} />
+
+                        </View>
 
                     </View>
-
-                </View>
+                </KeyboardAvoidingView>
 
 
             </SafeAreaView>

@@ -5,6 +5,7 @@ export const APIkeys = {
     deleteQuiz : '/quiz/',
     getAllquestions : '/question/',
     login : '/auth/login',
+    getNotices : '/notice/',
 
 }
 

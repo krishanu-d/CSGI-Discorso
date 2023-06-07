@@ -34,11 +34,26 @@ export default function Quiz(props) {
 
     const getQuestions = async () => {
         let response = await getQuizQuestions(props.route.params.data.id);
-        console.log('response', response.data.result);
+        // console.log('response', response.data);
         if (response.status == 200) {
             setNoData(false);
-            setQuestions(response.data.result);
-            // console.log('questions', questions);
+            let finalQuestions = response.data?.result.map((item) => {
+                return {
+                    question: item.question,
+                    answer: item.answer.map((item) => {
+                        return {
+                            answer: item.answer,
+                            ques_id: item.ques_id,
+                            id: item.id,
+                            selected: false
+                        }
+                    })
+                }
+            });
+            // setQuestions(response.data.result);
+            setQuestions(finalQuestions);
+            // console.log('item', item);
+            // console.log('questionssssssssssssssssssssssss', finalQuestions.map((item) => item.answer));
         } else {
             setNoData(true);
         }
@@ -49,6 +64,10 @@ export default function Quiz(props) {
     // }, [questions == []])
 
     const answerSelection = (item) => {
+        
+        item.selected = true;
+
+
         let ans = {
             quiz_id: props.route.params.data.id,
             question_id: item.ques_id,
@@ -56,12 +75,8 @@ export default function Quiz(props) {
         }
         // console.log('ans', ans);
         setAnswers(answer => [...answer, ans]);
-        // console.log('selected answer item', item);
-        const index = questions.findIndex((question) => question.question.id == item.ques_id);
-        const newQues = questions.splice(index, 1);
-        // setQuestions(newQues);
-        console.log('questions', questions);
-
+        console.log('selected answer item', item);
+        
 
 
 
@@ -70,17 +85,18 @@ export default function Quiz(props) {
     const renderAccountOptions = ({ item, index }) => {
         // console.log('item', item);
         return (
-            <View style={{ width: screenwidth * 0.95, backgroundColor: Colors.bgWhite, marginBottom: 10, borderRadius: 5, padding: 10 }}>
+            <View style={{ width: screenwidth * 0.95, backgroundColor: Colors.bgWhite, marginBottom: 10, borderRadius: 5, padding: 10 }} key={item.question.id}>
                 <Text style={{ color: Colors.navyBlue, fontFamily: Fonts.Medium, fontSize: 15 }}>
                     {/* {index + 1}. */}
-                 {item.question.question}</Text>
+                    {item.question.question}</Text>
 
                 <View style={{ flexDirection: 'column', marginTop: 10 }}>
 
                     {
                         item.answer.map((item) => {
+                            // console.log('item', item);
                             return (
-                                <TouchableOpacity onPress={() => { answerSelection(item) }} style={{ backgroundColor: Colors.bgGrey1, width: '90%', borderRadius: 10, marginTop: 5 }}  >
+                                <TouchableOpacity onPress={() => { answerSelection(item) }} style={{ backgroundColor: item.selected ? Colors.btnColor: Colors.bgGrey1, width: '90%', borderRadius: 10, marginTop: 5 }}  >
                                     <Text style={{ color: Colors.navyBlue, fontFamily: Fonts.Regular, fontSize: 14, padding: 5 }}>{item.answer}</Text>
                                 </TouchableOpacity>
                             )
@@ -98,9 +114,9 @@ export default function Quiz(props) {
 
     const submitAnswers = () => {
         console.log('selected answer', answers);
-        console.log('questions', questions);
+        // console.log('questions', questions);
         setTimeout(() => {
-            
+
             props.navigation.navigate('QuizList');
         }, 2000);
 
@@ -155,18 +171,18 @@ export default function Quiz(props) {
                                 extraData={questions}
                             />
                     }
-{/* 
+                    {/* 
                     {
                         endQuiz && 
                         <View style={{ width: '80%', alignSelf: 'center', marginTop: screenHeight * 0.15 }}>
                             <Text style={{ color: Colors.navyBlue, fontSize: 16, fontFamily: Fonts.SemiBold, textAlign: 'center', padding: 10 }}>You have reached the end of the Quiz, Please Press the Submit button to submit your answers</Text>
                         </View>
                     } */}
-
-                    <View>
-                        <CommonButton title='Submit' onPress={() => { submitAnswers() }} backgroundColor={Colors.btnColor} style={{ height: 40, minWidth: '80%', alignSelf: 'center' }} borderRadius={10} textStyle={{ color: Colors.navyBlue, fontSize: 16, fontFamily: Fonts.Bold }} />
-                    </View>
-
+                    {questions && !questions.length == 0 &&
+                        <View>
+                            <CommonButton title='Submit' onPress={() => { submitAnswers() }} backgroundColor={Colors.btnColor} style={{ height: 40, minWidth: '80%', alignSelf: 'center' }} borderRadius={10} textStyle={{ color: Colors.navyBlue, fontSize: 16, fontFamily: Fonts.Bold }} />
+                        </View>
+                    }
 
 
                 </View>

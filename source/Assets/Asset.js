@@ -3,7 +3,8 @@ export const Images = {
     Logo: require('../Assets/Images/Logo.png'),
     splashUp: require('../Assets/Images/splashUp.png'),
     splashBg: require('../Assets/Images/splashBg.png'),
-    dash: require('../Assets/Images/dash.jpg')
+    dash: require('../Assets/Images/dash.jpg'),
+    dp: require('../Assets/Images/OIG.jpeg'),
 
 }
 
