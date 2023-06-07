@@ -91,8 +91,8 @@ export default function Navigator() {
                 screenOptions={{
                     tabBarStyle: { backgroundColor: Colors.bgGreyColor, height: screenHeight * .10 },
                     tabBarActiveTintColor: Colors.navyBlue,
-                    tabBarInactiveTintColor: Colors.bgWhite,
-                    tabBarLabelStyle: { fontSize: 12, bottom: '11%', fontFamily: Fonts.Regular },
+                    tabBarInactiveTintColor: Colors.navyBlue,
+                    tabBarLabelStyle: { fontSize: 12, bottom: 8, fontFamily: Fonts.Regular },
                 }}>
 
                 <Tab.Screen name="DashStack" component={DashStack} options={{
@@ -107,6 +107,7 @@ export default function Navigator() {
                 <Tab.Screen name="QuizStack" component={QuizStack} options={{
                     tabBarLabel: 'Quiz',
                     headerShown: false,
+                    unmountOnBlur: true,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={{ height: 47, width: 47, justifyContent: 'center', alignItems: 'center', backgroundColor: focused ? Colors.bgWhite : Colors.bgGreyColor, borderRadius: 10 }}>
                             <FastImage source={focused ? Icons.test : Icons.testFill} resizeMode='contain' style={{ width: '70%', height: '70%' }} tintColor={color} />
@@ -118,7 +119,7 @@ export default function Navigator() {
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={{ height: 47, width: 47, justifyContent: 'center', alignItems: 'center', backgroundColor: focused ? Colors.bgWhite : Colors.bgGreyColor, borderRadius: 10 }}>
-                            <FastImage source={focused ? Icons.person : Icons.home} resizeMode='contain' style={{ width: '70%', height: '70%' }} tintColor={color} />
+                            <FastImage source={Icons.person} resizeMode='contain' style={{ width: '70%', height: '70%' }} tintColor={color} />
                         </View>
                     )
                 }} />

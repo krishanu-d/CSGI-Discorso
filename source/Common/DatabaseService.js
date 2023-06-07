@@ -49,12 +49,13 @@ export async function getAllQuiz() {
 }
 
 export async function getQuizQuestions(data) {
-
+    const authToken = await Utils.getData(Values.AUTH_TOKEN);
     let configOptions = {
         method: 'GET',
-        url: APIkeys.url + APIkeys.getAllquestions + data + '/getAllQuestions'
+        url: APIkeys.url + APIkeys.getAllquestions + data + '/getAllQuestions',
+        headers: { "Authorization": `Bearer ${authToken}` }
     }
-    console.log('configOptions', configOptions);
+    // console.log('configOptions', configOptions);
     try {
         const response = await axios(configOptions);
         // console.log(response.data);
@@ -65,9 +66,25 @@ export async function getQuizQuestions(data) {
         console.log(err);
         return err;
     }
+}
 
+export async function getAllNotices(data) {
+    const authToken = await Utils.getData(Values.AUTH_TOKEN);
+    let configOptions = {
+        method: 'GET',
+        url: APIkeys.url + APIkeys.getNotices,
+        headers: { "Authorization": `Bearer ${authToken}` }
+    }
+    // console.log('configOptions', configOptions);
+    try {
+        const response = await axios(configOptions);
+        // console.log(response.data);
+        return response;
 
-
-
+        // Work with the response...
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
 }
 
