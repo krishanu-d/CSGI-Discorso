@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StatusBar, StyleSheet, TextInput, KeyboardAvoidingView } from "react-native";
+import { View, Text, StatusBar, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import { Colors } from '../../Common/Colors';
 import FastImage from 'react-native-fast-image';
 import { Icons, Images } from '../../Assets/Asset';
@@ -24,6 +24,7 @@ export default function Login(props) {
     const [password, setPassword] = useState('');
     const [passErr, setPassErr] = useState('');
     const [enrollErr, setEnrollErr] = useState('');
+    const[visible,setVisible]=useState(false);
 
     const dispatch = useDispatch();
 
@@ -122,18 +123,24 @@ export default function Login(props) {
                             </View>
 
                             <View style={{ paddingVertical: 15 }}>
-                                <Text style={Styles.EnrollmentTextStyle}>Password</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={Styles.EnrollmentTextStyle}>Password</Text>
+                                    <TouchableOpacity onPress={()=>{setVisible(!visible) }}>
+                                        <FastImage source={visible ? Icons.visible : Icons.invisible} style={{ width: 30, height: 30, paddingRight: 17 }} resizeMode='contain' />
+                                    </TouchableOpacity>
+                                </View>
+
                                 <View>
                                     <TextInput placeholder='*******' maxLength={20}
                                         placeholderTextColor={Colors.darkGrey}
-                                        secureTextEntry={true}
+                                        secureTextEntry={visible}
                                         style={hasPasswordErr ? Styles.inputContainerErr : Styles.inputContainer}
                                         onChangeText={(p) => { setPassword(p); setHasPasswordErr(false); }}
                                         onSubmitEditing={() => { submit() }}
                                     />
-                                    <View>
+                                    {/* <View>
 
-                                    </View>
+                                    </View> */}
 
                                 </View>
                                 {hasPasswordErr &&
@@ -143,7 +150,7 @@ export default function Login(props) {
                         </View>
 
 
-                        <View style={{ justifyContent: 'center', paddingVertical:30}}>
+                        <View style={{ justifyContent: 'center', paddingVertical: 30 }}>
                             <CommonButton title='Get Started' onPress={() => { submit() }} backgroundColor={Colors.btnColor} style={{ height: 50, minWidth: '80%' }} borderRadius={50} textStyle={{ color: Colors.bgBlack, fontSize: 16, }} />
                             <FastImage source={Icons.rightArrow} style={{ width: 18, height: 18, position: 'absolute', right: 20 }} resizeMode={'contain'} />
 

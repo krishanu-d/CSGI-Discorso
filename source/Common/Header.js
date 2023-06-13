@@ -8,9 +8,12 @@ import { Fonts } from '../Common/Fonts';
 
 export default function Header() {
     return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: Colors.bgWhite, padding: 10 }}>
-            <View style={{ backgroundColor: Colors.logoBg, height: 45, width: 45, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
-                <FastImage source={Images.Logo} style={{ width: 35, height: 23 }} resizeMode={'contain'} />
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: Colors.bgWhite, padding: 10, }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ backgroundColor: Colors.logoBg, height: 45, width: 45, justifyContent: 'center', alignItems: 'center', borderRadius: 80, }}>
+                    <FastImage source={Images.Logo} style={{ width: 35, height: 23 }} resizeMode={'contain'} />
+                </View>
+                <Text style={{ color: Colors.bgBlack, fontSize: 15, fontFamily: Fonts.Medium, }}>CSGI DISCORSO </Text>
             </View>
 
             <View style={{ backgroundColor: Colors.bgGreyColor, height: 45, width: 130, borderRadius: 50, justifyContent: 'flex-end', flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8 }}>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StatusBar, StyleSheet, TextInput, KeyboardAvoidingView, Dimensions } from "react-native";
+import { View, Text, StatusBar, StyleSheet, TextInput, KeyboardAvoidingView, Dimensions, RefreshControl } from "react-native";
 import { Colors } from '../../Common/Colors';
 import FastImage from 'react-native-fast-image';
 import { Icons, Images } from '../../Assets/Asset';
@@ -22,6 +22,7 @@ export default function Dashboard(props) {
     const isFocused = useIsFocused()
 
     const [notice, setNotice] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         if (isFocused) {
@@ -39,21 +40,18 @@ export default function Dashboard(props) {
         }
     }
 
+    const onRefresh = useCallback(
+        () => {
+            setRefreshing(true);
+            Notices();
+            setTimeout(() => {
+                setRefreshing(false);
+            }, 2000);
+        }, []
+    )
+
     const RenderNotice = () => {
 
-
-
-        // <View style={{ backgroundColor: Colors.bgWhite, padding: 10, borderRadius: 10, marginTop: 10, marginBottom: 10 }}>
-        //                     <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
-        //                         <Text style={{ color: Colors.bgBlack, fontFamily: Fonts.Bold, fontSize: 20 }}>Notice : </Text>
-        //                         <Text style={{ color: Colors.bgBlack }}>23 Mar 2023</Text>
-        //                     </View>
-        //                     <Text style={{ color: Colors.bgBlack, fontFamily: Fonts.Regular, fontSize: 13 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut volutpat lectus. Sed non diam consectetur, iaculis libero vitae, commodo lectus. Ut congue nisl massa, a fringilla lectus porttitor ac. Aliquam eget mattis leo. Quisque convallis diam purus, ac suscipit elit venenatis nec. Pellentesque sodales elit sollicitudin turpis semper, ut faucibus massa accumsan. Phasellus auctor mauris orci, vel semper massa facilisis nec. Maecenas non interdum leo. Curabitur convallis ligula tortor, eget sodales diam varius a.
-
-        //                         Maecenas pharetra blandit viverra.</Text>
-
-        //                 </View>
-        console.log('notice', notice.map((item) => item));
         return (
             <>
                 {
@@ -65,7 +63,7 @@ export default function Dashboard(props) {
                                     <Text style={{ color: Colors.bgBlack }}>{item.notice_date}</Text>
 
                                 </View>
-                                <Text style={{ color: Colors.bgBlack, fontFamily:Fonts.SemiBold, fontSize:15 }}>{item.notice_heading}</Text>
+                                <Text style={{ color: Colors.bgBlack, fontFamily: Fonts.SemiBold, fontSize: 15 }}>{item.notice_heading}</Text>
                                 <Text style={{ color: Colors.bgBlack, fontFamily: Fonts.Regular, fontSize: 13 }}>{item.notice_body}</Text>
 
                             </View>
@@ -93,14 +91,26 @@ export default function Dashboard(props) {
                     {/* logo and account */}
 
                     {/* logo and account */}
-                    <ScrollView showsVerticalScrollIndicator={false} >
-                        {/* Notice */}
-                        <RenderNotice />
+                    <ScrollView showsVerticalScrollIndicator={false}
 
-                        <View style={{ backgroundColor: Colors.bgWhite, padding: 10, borderRadius: 10, marginTop: 10, marginBottom: 10 }}>
+                        refreshControl={
+                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                        }
+                    >
+                        {/* Notice */}
+                        {notice.length > 0 ?
+                            <RenderNotice />
+                            :
+                            <Text style={{ color: Colors.navyBlue, fontFamily: Fonts.Bold, fontSize: 20 }}>
+                                No Notice Found
+                            </Text>
+
+                        }
+
+                        {/* <View style={{ backgroundColor: Colors.bgWhite, padding: 10, borderRadius: 10, marginTop: 10, marginBottom: 10 }}>
                             <FastImage source={Images.dash} style={{ height: screenwidth * .8 }} />
                             <Text style={{ color: Colors.bgBlack, fontFamily: Fonts.Regular, fontSize: 13, marginTop: 5 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut volutpat lectus. Sed non diam consectetur, iaculis libero vitae, commodo lectus. Ut congue nisl massa, a fringilla lectus porttitor ac. Aliquam eget mattis leo. Quisque convallis diam purus, ac suscipit elit venenatis nec. Pellentesque sodales elit sollicitudin turpis semper, ut faucibus massa accumsan. Phasellus auctor mauris orci, vel semper massa facilisis nec.  </Text>
-                        </View>
+                        </View> */}
                         {/* Notice */}
 
                     </ScrollView>
