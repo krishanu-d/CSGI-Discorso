@@ -87,7 +87,7 @@ export default function Navigator() {
 
     const BottomTabNavigator = () => {
         return (
-            <Tab.Navigator initialRouteName='DashStack' backBehavior='history'
+            <Tab.Navigator initialRouteName='DashStack' backBehavior='order'
                 screenOptions={{
                     tabBarStyle: { backgroundColor: Colors.bgGreyColor, height: screenHeight * .10 },
                     tabBarActiveTintColor: Colors.navyBlue,
@@ -133,9 +133,9 @@ export default function Navigator() {
             <Stack.Navigator initialRouteName={Routes.Splash.name} screenOptions={hideHeader} >
                 <Stack.Screen name={Routes.Splash.name} component={Routes.Splash.Screen} />
                 <Stack.Screen name={Routes.Auth.name} component={AuthStack} />
-                <Stack.Screen name={Routes.BottomTabs.name} component={BottomTabNavigator} />
-                <Stack.Screen name={Routes.Quiz.name} component={QuizStack} />
                 <Stack.Screen name={Routes.Account.name} component={AccountStack} />
+                <Stack.Screen name={Routes.Quiz.name} component={QuizStack} />
+                <Stack.Screen name={Routes.BottomTabs.name} component={BottomTabNavigator} />
 
             </Stack.Navigator>
         )
