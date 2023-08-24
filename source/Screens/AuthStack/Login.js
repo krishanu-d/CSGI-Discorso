@@ -46,10 +46,10 @@ export default function Login(props) {
 
             let response = await loginDatabaseService(data);
 
-            console.log('response bahar wala', response.data.code);
+            // console.log('response bahar wala', response.data?.code);
 
 
-            if (response.data.code === 200) {
+            if (response.data?.code === 200) {
                 setHasErr(false);
 
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "698826573319",
+    "project_id": "csgi-discorso",
+    "storage_bucket": "csgi-discorso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698826573319:android:fe391b71b300fa32324ca2",
+        "android_client_info": {
+          "package_name": "com.csgi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698826573319-6f8gr4kf19nfs53gmqi1d5720ai6nabt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csgi",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "698826573319-naao8oq9m3meuoipic99dueiujnt244u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4cm6ZpqJeyD5_gvN9PdiLyTtrD29t09o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698826573319-naao8oq9m3meuoipic99dueiujnt244u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

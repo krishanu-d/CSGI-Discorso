@@ -8,16 +8,11 @@ import FastImage from 'react-native-fast-image';
 import { Icons, Images } from '../../Assets/Asset';
 import CommonButton from '../../Common/CommonButton';
 import { Fonts } from '../../Common/Fonts';
-// import { useIsFocused } from '@react-navigation/native';
-// import Routes from '../Navigation/Routes'
-// import { Utils } from '../Common/Utils';
-// import { Values } from '../Common/Values';
-// import { SplashDatabaseService } from '../Service/DatabaseService';
-// import { Endpoints, ApiVersion, Method, StageURL } from '../Config/Keys';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { Utils } from '../../Common/Utils';
 import { Values } from '../../Common/Values';
+import { Notifications } from 'react-native-notifications';
+
 
 const screenHeight = Dimensions.get('screen').height
 
@@ -35,7 +30,6 @@ const [userInfo, setUserInfo] = useState(false);
 
     const checkAuth = async () => {
 
-        // console.log("user info", userInfo);
         const authToken = await Utils.getData(Values.AUTH_TOKEN);
         console.log('SPLASH SCREEN AUTH TOKEN---------->', authToken);
         if(authToken){
@@ -47,31 +41,24 @@ const [userInfo, setUserInfo] = useState(false);
         else{
             setUserInfo(false);
         }
-        // console.log("cart Detail--------->>>>", cart);
-        // if (authToken && info) {
-        //     dispatch(setUserInfo(info))
-        //     dispatch(addItemToCart(cart||null))
 
-
-        // setTimeout(() => {
-        //     props.navigation.replace('Auth', { screen: 'Login' });
-        // }, 2000)
-
-
-
-        // }
-        // else {
-        //     dispatch(setUserInfo(null))
-        //     let dataCleared = await Utils.clearAllData();
-        //     if (dataCleared) {
-        //         getGuestToken();
-        //     }
-        // }
     }
+    // const scheduleNotification = () => {
+    //     const notification = {
+    //       "title": 'Hello',
+    //       "body": 'This is a local notification',
+    //       "sound": 'chime.aiff',
+    //     };
+    //     const id = '123';
+    //     Notifications.postLocalNotification(notification, id);
+    //   };
 
     const getStarted = () => {
+        // scheduleNotification()
         props.navigation.replace('Auth', { screen: 'Login' });
     }
+
+    
 
 
     return (
